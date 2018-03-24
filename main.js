@@ -55,23 +55,51 @@ const students = [
     }
 ];
 
-//Print to dom function
+//Print to dom function write to dom function
 const printToDom = (domString, divId) => {
     const printTo = document.getElementById(divId);
     printTo.innerHTML = domString;
 };
-
+// adding the content of html by using ES6
 const buildDomString = (studentArray) => {
     let domString = '';
     studentArray.forEach((student) => {
         domString +=`<div class="card">`;
-        domString += `<h1>${student.firstName} ${student.lastName}</h1>`;
-        domString +=`<h3>${student.catchPhrase}</h3>`;
-        domString += `<img src="${student.avatar}" alt="">`;
-        domString += `<button class="button">Brought Pie</button>`;
-        domString += `</div>`;
+        domString +=   `<h1>${student.firstName} ${student.lastName}</h1>`;
+        domString +=   `<h3>${student.catchPhrase}</h3>`;
+        domString +=   `<img src="${student.avatar}" alt="">`;
+        domString +=   `<button class="card-button">Brought Pie</button>`;
+        domString +=`</div>`;
     });
     printToDom(domString, "card-holder");
-}
+};
 
-buildDomString(students);
+
+
+const addAllEventListener = () => {
+     const allTheButtons = document.getElementsByClassName ('card-button');
+
+     for (let i = 0; i < allTheButtons.length; i++) {
+       allTheButtons[i].addEventListener ('click', changeNameToGreen); //added a named function instead of (e) do not put(e)after the named function   
+     }  
+};
+
+
+// has the event listener function which means it will always get the event
+const changeNameToGreen = (e) => {
+    console.log ('event!!!!!!', e);
+    const nameOfStudent = e.target.parentNode.children[0];
+    nameOfStudent.classList.add('green');
+};
+
+//
+const startApplication = () => {
+    buildDomString(students);
+    addAllEventListener();
+};
+
+
+startApplication();
+
+
+
